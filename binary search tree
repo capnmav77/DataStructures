@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<conio.h>
+#include<math.h>
+#include<ctype.h>
+
+typedef struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+}Node;
+
+typedef struct root{
+    Node* root;
+}Tree;
+
+void create(Tree*pt)
+{
+    Node *temp,*p,*q;
+    int opt,wish;
+    //initialising the main tree
+    printf("enter the root info:\n");
+    pt->root=(Node*)malloc(sizeof(Node));
+    scanf("%d",&pt->root->data);
+    pt->root->left=NULL;
+    pt->root->right=NULL;
+
+    do
+    {
+        printf("enter the element to be inserted:\n");
+        temp=(Node*)malloc(sizeof(Node));
+        scanf("%d",&temp->data);
+        temp->left=NULL;
+        temp->right=NULL;
+        q=NULL;
+        p=pt->root;
+        
+        while(p!=NULL)
+        {
+            q=p;
+            if(temp->data<q->data)
+                p=p->left;
+            else
+                p=p->right;
+        }
+
+        if(temp->data<q->data)
+        {
+            q->left=temp;
+        }
+        else{
+            q->right=temp;
+        }
+
+        printf("do you wish to continue:\nenter 1 else 0\n");
+        scanf("%d",&wish);
+    }while (wish);
+
+}
+
+void traversal(Node* p)
+{
+    if(p!=NULL)
+    {
+        traversal(p->left);
+        printf("%d",p->data);
+        traversal(p->right);
+    }
+}
+
+void tree_trav(Tree*t)
+{
+    traversal(t->root);
+}
+
+int main()
+{
+    Tree tre;
+    create(&tre);
+    tree_trav(&tre);
+    return 0;
+}
+
